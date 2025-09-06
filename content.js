@@ -8,6 +8,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 });
 
 function injectTabTitles(tabTitles) {
+  // Remove old container if exists
+  const old = document.getElementById('tab-titles-container');
+  if (old) old.remove();
+
   // Create a container for the tab titles
   const container = document.createElement('div');
   container.id = 'tab-titles-container';

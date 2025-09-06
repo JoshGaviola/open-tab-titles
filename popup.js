@@ -9,32 +9,18 @@ document.addEventListener('DOMContentLoaded', function() {
   refreshBtn.addEventListener('click', loadTabTitles);
   
   injectBtn.addEventListener('click', function() {
+    // Get current active tab
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
       if (tabs[0]) {
+        // Send message to content script to inject titles
         chrome.tabs.sendMessage(tabs[0].id, {
           action: "injectTitles",
           tabTitles: getTabTitlesArray()
         }, function(response) {
-          if (chrome.runtime.lastError || !response || response.status !== "success") {
-            // Try programmatic injection as fallback
-            chrome.scripting.executeScript({
-              target: {tabId: tabs[0].id},
-              files: ['content.js']
-            }, () => {
-              // Try sending the message again
-              chrome.tabs.sendMessage(tabs[0].id, {
-                action: "injectTitles",
-                tabTitles: getTabTitlesArray()
-              }, function(response2) {
-                if (response2 && response2.status === "success") {
-                  alert("Tab titles injected successfully!");
-                } else {
-                  alert("Failed to inject titles. Make sure you're on a supported page.");
-                }
-              });
-            });
-          } else {
+          if (response && response.status === "success") {
             alert("Tab titles injected successfully!");
+          } else {
+            alert("Failed to inject titles. Make sure you're on a supported page.");
           }
         });
       }
