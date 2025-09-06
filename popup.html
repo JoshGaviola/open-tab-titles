@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 400px;
+      height: 500px;
+      padding: 10px;
+      font-family: Arial, sans-serif;
+    }
+    .tab-list {
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    .tab-item {
+      padding: 8px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+    }
+    .tab-item:hover {
+      background-color: #f5f5f5;
+    }
+    .tab-item:last-child {
+      border-bottom: none;
+    }
+    button {
+      padding: 8px 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .controls {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h3>All Open Tabs</h3>
+  <div id="tabList" class="tab-list"></div>
+  
+  <div class="controls">
+    <button id="refreshBtn">Refresh List</button>
+    <button id="injectBtn">Inject Titles to Current Tab</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
