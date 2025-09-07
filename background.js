@@ -5,14 +5,10 @@ function injectTitlesToTargetTab() {
     // Find all target tabs
     tabs.forEach(tab => {
       if (tab.url && tab.url.startsWith('https://joshgaviola.github.io/antiprocrastintor/')) {
-        chrome.scripting.executeScript({
-          target: {tabId: tab.id},
-          files: ['content.js']
-        }, () => {
-          chrome.tabs.sendMessage(tab.id, {
-            action: "injectTitles",
-            tabTitles: titles
-          });
+        // Only send the message, do NOT inject the script again
+        chrome.tabs.sendMessage(tab.id, {
+          action: "injectTitles",
+          tabTitles: titles
         });
       }
     });
@@ -26,3 +22,13 @@ chrome.tabs.onUpdated.addListener(() => injectTitlesToTargetTab());
 
 chrome.runtime.onStartup.addListener(injectTitlesToTargetTab);
 chrome.runtime.onInstalled.addListener(injectTitlesToTargetTab);
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === "getTabInfo") {
+    chrome.tabs.query({}, function(tabs) {
+      // Send back array of {title, url}
+      sendResponse({tabs: tabs.map(tab => ({title: tab.title, url: tab.url}))});
+    });
+    return true; // Needed for async response
+  }
+});

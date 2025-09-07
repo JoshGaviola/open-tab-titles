@@ -20,15 +20,35 @@ function injectTabTitles(tabTitles) {
   list.style.paddingLeft = '20px';
   list.style.marginBottom = '10px';
 
-  tabTitles.forEach(title => {
-    const listItem = document.createElement('li');
-    listItem.textContent = title;
-    listItem.style.marginBottom = '5px';
-    listItem.style.wordWrap = 'break-word';
-    list.appendChild(listItem);
-  });
+  // Get tab info from background (titles + urls)
+  chrome.runtime.sendMessage({action: "getTabInfo"}, function(response) {
+    if (!response || !response.tabs) return;
 
-  tabsDiv.appendChild(list);
+    response.tabs.forEach(tab => {
+      const listItem = document.createElement('li');
+      const link = document.createElement('a');
+      link.textContent = tab.title;
+      link.href = tab.url;
+      link.target = "_blank";
+      link.style.cursor = "pointer";
+      link.style.textDecoration = "underline";
+      link.style.color = "#007bff";
+
+      // Optional: handle click event (e.g., show alert with URL)
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.open(tab.url, '_blank');
+        // Or: alert(tab.url);
+      });
+
+      listItem.appendChild(link);
+      listItem.style.marginBottom = '5px';
+      listItem.style.wordWrap = 'break-word';
+      list.appendChild(listItem);
+    });
+
+    tabsDiv.appendChild(list);
+  });
 }
 
 // Optional: Add keyboard shortcut to show titles
