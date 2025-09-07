@@ -19,10 +19,7 @@ function injectTitlesToTargetTab() {
   });
 }
 
-// Inject every 1 second
-setInterval(injectTitlesToTargetTab, 1000);
-
-// Optional: Keep event listeners for instant updates too
+// Keep event listeners for instant updates
 chrome.tabs.onCreated.addListener(() => injectTitlesToTargetTab());
 chrome.tabs.onRemoved.addListener(() => injectTitlesToTargetTab());
 chrome.tabs.onUpdated.addListener(() => injectTitlesToTargetTab());
