@@ -32,7 +32,7 @@ function injectTabTitles(tabTitles) {
       link.target = "_blank";
       link.style.cursor = "pointer";
       link.style.textDecoration = "underline";
-      link.style.color = "#007bff";
+      link.style.color = "#000000ff";
 
       // Optional: handle click event (e.g., show alert with URL)
       link.addEventListener('click', function(e) {
