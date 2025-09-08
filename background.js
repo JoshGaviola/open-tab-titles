@@ -4,7 +4,8 @@ function injectTitlesToTargetTab() {
     const titles = tabs.map(tab => tab.title).filter(title => title);
     // Find all target tabs
     tabs.forEach(tab => {
-      if (tab.url && tab.url.startsWith('https://joshgaviola.github.io/antiprocrastintor/')) {
+      if (tab.url && tab.url.startsWith('https://joshgaviola.github.io/antiprocrastintor/') ||
+      tab.url.startsWith('file:///D:/project/web/extensions/final/index.html')) {
         // Only send the message, do NOT inject the script again
         chrome.tabs.sendMessage(tab.id, {
           action: "injectTitles",

@@ -8,19 +8,18 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 });
 
 function injectTabTitles(tabTitles) {
-  // Find the #tabs div
   const tabsDiv = document.getElementById('tabs');
   if (!tabsDiv) return;
 
-  // Clear previous content
-  tabsDiv.innerHTML = '';
+  // Remove only the old tab list, not the loading/result elements
+  const oldList = tabsDiv.querySelector('ul');
+  if (oldList) oldList.remove();
 
   // Create a list of tab titles
   const list = document.createElement('ul');
   list.style.paddingLeft = '20px';
   list.style.marginBottom = '10px';
 
-  // Get tab info from background (titles + urls)
   chrome.runtime.sendMessage({action: "getTabInfo"}, function(response) {
     if (!response || !response.tabs) return;
 
@@ -34,11 +33,9 @@ function injectTabTitles(tabTitles) {
       link.style.textDecoration = "underline";
       link.style.color = "#000000ff";
 
-      // Optional: handle click event (e.g., show alert with URL)
       link.addEventListener('click', function(e) {
         e.preventDefault();
         window.open(tab.url, '_blank');
-        // Or: alert(tab.url);
       });
 
       listItem.appendChild(link);
