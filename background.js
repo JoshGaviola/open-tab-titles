@@ -1,35 +1,63 @@
-// Helper: inject tab titles into the target tab(s)
-function injectTitlesToTargetTab() {
-  chrome.tabs.query({}, function(tabs) {
-    const titles = tabs.map(tab => tab.title).filter(title => title);
-    // Find all target tabs
-    tabs.forEach(tab => {
-      if (tab.url && tab.url.startsWith('https://joshgaviola.github.io/antiprocrastintor/') ||
-      tab.url.startsWith('file:///D:/project/web/extensions/final/index.html')) {
-        // Only send the message, do NOT inject the script again
-        chrome.tabs.sendMessage(tab.id, {
-          action: "injectTitles",
-          tabTitles: titles
-        });
-      }
-    });
-  });
+// background.js - FIXED
+
+// Store the list of target URLs for automatic injection
+const TARGET_URLS = [
+    'https://joshgaviola.github.io/antiprocrastintor/',
+    'http://localhost/', // For development
+    'file:///' // This will match ANY local file. Be cautious.
+];
+
+// Check if a tab is one of our target tabs
+function isTargetTab(tab) {
+    if (!tab.url) return false;
+    return TARGET_URLS.some(targetUrl => tab.url.startsWith(targetUrl));
 }
 
-// Keep event listeners for instant updates
-chrome.tabs.onCreated.addListener(() => injectTitlesToTargetTab());
-chrome.tabs.onRemoved.addListener(() => injectTitlesToTargetTab());
-chrome.tabs.onUpdated.addListener(() => injectTitlesToTargetTab());
+// Main function: get all tabs and inject data into target tabs
+function injectTitlesToTargetTab() {
+    chrome.tabs.query({}, function(allTabs) {
+        // Prepare the data to send: just titles and URLs
+        const tabData = allTabs
+            .filter(tab => tab.title && tab.url) // Filter out invalid tabs
+            .map(tab => ({ title: tab.title, url: tab.url })); // Map to simple objects
 
+        // Find all target tabs and send them the data
+        allTabs.forEach(tab => {
+            if (isTargetTab(tab)) {
+                chrome.tabs.sendMessage(tab.id, {
+                    action: "injectTitles",
+                    tabData: tabData // Send the prepared data
+                }).catch(error => {
+                    // This is normal if the page hasn't loaded or content script isn't ready
+                    console.debug('Could not send message to tab:', tab.id, error);
+                });
+            }
+        });
+    });
+}
+
+// Debounce function to prevent excessive calls on rapid events
+let debounceTimer;
+function debouncedInjectTitles() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(injectTitlesToTargetTab, 100); // Wait 100ms after last event
+}
+
+// Event listeners for automatic updates
+chrome.tabs.onCreated.addListener(debouncedInjectTitles);
+chrome.tabs.onRemoved.addListener(debouncedInjectTitles);
+chrome.tabs.onUpdated.addListener(debouncedInjectTitles); // Now debounced
+
+// Initial injection
 chrome.runtime.onStartup.addListener(injectTitlesToTargetTab);
 chrome.runtime.onInstalled.addListener(injectTitlesToTargetTab);
 
+// Handle messages from popup or content scripts
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.action === "getTabInfo") {
-    chrome.tabs.query({}, function(tabs) {
-      // Send back array of {title, url}
-      sendResponse({tabs: tabs.map(tab => ({title: tab.title, url: tab.url}))});
-    });
-    return true; // Needed for async response
-  }
+    if (request.action === "getTabInfo") {
+        chrome.tabs.query({}, function(tabs) {
+            sendResponse({ tabs: tabs.map(tab => ({ title: tab.title, url: tab.url })) });
+        });
+        return true; // Needed for async response
+    }
 });
