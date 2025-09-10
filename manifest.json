@@ -1,19 +1,21 @@
 {
   "manifest_version": 3,
-  "name": "Tab Title Extractor",
-  "version": "1.0",
-  "description": "Displays all tab titles and injects them into websites",
+  "name": "Tab Title Extractor & URL Blocker",
+  "version": "1.1",
+  "description": "Displays all tab titles and blocks specific URLs",
   "permissions": [
     "tabs",
     "activeTab",
-    "scripting"
+    "scripting",
+    "storage",
+    "webNavigation"
   ],
   "host_permissions": [
     "<all_urls>"
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "View Tab Titles"
+    "default_title": "Tab Tools"
   },
   "background": {
     "service_worker": "background.js"
