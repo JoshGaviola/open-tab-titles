@@ -1,0 +1,111 @@
+/* URL Blocker Styles */
+.input-group {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+#urlInput {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px 0 0 4px;
+  font-size: 12px;
+}
+
+#addUrl {
+  padding: 8px 12px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+#addUrl:hover {
+  background: #45a049;
+}
+
+.blocked-list {
+  max-height: 250px;
+  overflow-y: auto;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background: white;
+}
+
+#blockedUrls {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#blockedUrls li {
+  padding: 8px;
+  background: #f9f9f9;
+  border: 1px solid #eee;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#blockedUrls li span {
+  flex: 1;
+  font-size: 12px;
+  word-break: break-all;
+}
+
+.remove-btn {
+  background: #ff5252;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 11px;
+  margin-left: 8px;
+}
+
+.remove-btn:hover {
+  background: #ff0000;
+}
+
+.footer {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+  text-align: center;
+}
+
+#toggleBlocking {
+  padding: 8px 15px;
+  background: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  width: 100%;
+}
+
+#toggleBlocking.disabled {
+  background: #ccc;
+}
+
+.empty-state {
+  text-align: center;
+  color: #999;
+  font-style: italic;
+  padding: 10px;
+  font-size: 12px;
+}
+
+.subtitle {
+  font-size: 12px;
+  color: #666;
+  margin: 5px 0 15px 0;
+}

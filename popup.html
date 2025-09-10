@@ -4,11 +4,38 @@
   <meta charset="utf-8">
   <style>
     body {
-      width: 400px;
+      width: 450px;
       height: 500px;
-      padding: 10px;
+      padding: 0;
+      margin: 0;
       font-family: Arial, sans-serif;
     }
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #ddd;
+    }
+    .tab {
+      padding: 10px 15px;
+      cursor: pointer;
+      background: #f1f1f1;
+      border-right: 1px solid #ddd;
+    }
+    .tab.active {
+      background: #fff;
+      border-bottom: 2px solid #007bff;
+      font-weight: bold;
+    }
+    .tab-content {
+      display: none;
+      padding: 15px;
+      height: calc(100% - 41px);
+      overflow-y: auto;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    
+    /* Tab Title Extractor Styles */
     .tab-list {
       max-height: 300px;
       overflow-y: auto;
@@ -43,16 +70,46 @@
       margin-top: 10px;
     }
   </style>
+  <!-- Load URL Blocker styles -->
+  <link rel="stylesheet" href="url-blocker/blocker-styles.css">
 </head>
 <body>
-  <h3>All Open Tabs</h3>
-  <div id="tabList" class="tab-list"></div>
+  <div class="tabs">
+    <div class="tab active" data-tab="tabs">Tab Titles</div>
+    <div class="tab" data-tab="blocker">URL Blocker</div>
+  </div>
   
-  <div class="controls">
-    <button id="refreshBtn">Refresh List</button>
-    <button id="injectBtn">Inject Titles to Current Tab</button>
+  <div id="tabsContent" class="tab-content active">
+    <h3>All Open Tabs</h3>
+    <div id="tabList" class="tab-list"></div>
+    
+    <div class="controls">
+      <button id="refreshBtn">Refresh List</button>
+      <button id="injectBtn">Inject Titles to Current Tab</button>
+    </div>
+  </div>
+  
+  <div id="blockerContent" class="tab-content">
+    <h3>URL Blocker</h3>
+    <p class="subtitle">Block specific URLs while keeping the site accessible</p>
+    
+    <div class="input-group">
+      <input type="text" id="urlInput" placeholder="Enter full URL to block">
+      <button id="addUrl">Block URL</button>
+    </div>
+    
+    <div class="blocked-list">
+      <h4>Blocked URLs</h4>
+      <ul id="blockedUrls"></ul>
+    </div>
+    
+    <div class="footer">
+      <button id="toggleBlocking">Enable Blocking</button>
+    </div>
   </div>
 
+  <script src="url-blocker/blocker-popup.js"></script>
   <script src="popup.js"></script>
+  <!-- Load URL Blocker functionality -->
 </body>
 </html>
