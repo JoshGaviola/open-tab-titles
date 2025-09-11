@@ -3,81 +3,42 @@
 <head>
   <meta charset="utf-8">
   <style>
-    body {
-      width: 450px;
-      height: 500px;
-      padding: 0;
-      margin: 0;
-      font-family: Arial, sans-serif;
-    }
-    .tabs {
-      display: flex;
-      border-bottom: 1px solid #ddd;
-    }
-    .tab {
-      padding: 10px 15px;
-      cursor: pointer;
-      background: #f1f1f1;
-      border-right: 1px solid #ddd;
-    }
-    .tab.active {
-      background: #fff;
-      border-bottom: 2px solid #007bff;
-      font-weight: bold;
-    }
-    .tab-content {
-      display: none;
-      padding: 15px;
-      height: calc(100% - 41px);
-      overflow-y: auto;
-    }
-    .tab-content.active {
-      display: block;
-    }
+    /* ... your existing styles ... */
     
-    /* Tab Title Extractor Styles */
-    .tab-list {
-      max-height: 300px;
-      overflow-y: auto;
-      border: 1px solid #ddd;
-      padding: 10px;
-      margin-bottom: 10px;
+    /* Add these styles for URL blocker */
+    .url-blocker {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #ddd;
     }
-    .tab-item {
+    #blockedSitesList {
+      max-height: 200px;
+      overflow-y: auto;
+      margin: 10px 0;
+    }
+    .blocked-site-item {
       padding: 8px;
       border-bottom: 1px solid #eee;
-      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .tab-item:hover {
+    .blocked-site-item:hover {
       background-color: #f5f5f5;
     }
-    .tab-item:last-child {
-      border-bottom: none;
-    }
-    button {
-      padding: 8px 16px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 4px;
+    .remove-btn {
+      color: #ff4444;
       cursor: pointer;
-      margin: 5px;
+      font-weight: bold;
+      padding: 2px 8px;
     }
-    button:hover {
-      background-color: #0056b3;
-    }
-    .controls {
-      margin-top: 10px;
+    .remove-btn:hover {
+      background-color: #ff4444;
+      color: white;
     }
   </style>
-  <!-- Load URL Blocker styles -->
-  <link rel="stylesheet" href="url-blocker/blocker-styles.css">
 </head>
 <body>
-  <div class="tabs">
-    <div class="tab active" data-tab="tabs">Tab Titles</div>
-    <div class="tab" data-tab="blocker">URL Blocker</div>
-  </div>
   
   <div id="tabsContent" class="tab-content active">
     <h3>All Open Tabs</h3>
@@ -87,29 +48,20 @@
       <button id="refreshBtn">Refresh List</button>
       <button id="injectBtn">Inject Titles to Current Tab</button>
     </div>
-  </div>
-  
-  <div id="blockerContent" class="tab-content">
-    <h3>URL Blocker</h3>
-    <p class="subtitle">Block specific URLs while keeping the site accessible</p>
-    
-    <div class="input-group">
-      <input type="text" id="urlInput" placeholder="Enter full URL to block">
-      <button id="addUrl">Block URL</button>
-    </div>
-    
-    <div class="blocked-list">
-      <h4>Blocked URLs</h4>
-      <ul id="blockedUrls"></ul>
-    </div>
-    
-    <div class="footer">
-      <button id="toggleBlocking">Enable Blocking</button>
+
+    <!-- URL Blocker Section -->
+    <div class="url-blocker">
+      <h3>URL Blocker</h3>
+      <div>
+        <input type="text" id="newSiteInput" placeholder="Enter site URL (e.g., youtube.com)" style="width: 70%; padding: 5px;">
+        <button id="addSiteBtn">Block Site</button>
+      </div>
+      <div id="blockedSitesList" class="tab-list">
+        <!-- Blocked sites will appear here -->
+      </div>
     </div>
   </div>
 
-  <script src="url-blocker/blocker-popup.js"></script>
   <script src="popup.js"></script>
-  <!-- Load URL Blocker functionality -->
 </body>
 </html>

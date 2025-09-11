@@ -61,3 +61,35 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         return true; // Needed for async response
     }
 });
+
+// ==================== URL BLOCKER FUNCTIONALITY ====================
+
+// Listen for every navigation and block URLs from our list
+chrome.webNavigation.onBeforeNavigate.addListener((details) => {
+  // Check if this URL is in our blocklist
+  chrome.storage.local.get(['blockedUrls'], (result) => {
+    const blockedUrls = result.blockedUrls || [];
+    const currentUrl = details.url.toLowerCase();
+    
+    // Check if current URL matches any in our blocklist
+    const shouldBlock = blockedUrls.some(blockedUrl => 
+      currentUrl.includes(blockedUrl.toLowerCase())
+    );
+    
+    if (shouldBlock) {
+      // Redirect to a simple block page
+      chrome.tabs.update(details.tabId, {
+        url: chrome.runtime.getURL('blocked.html') + '?url=' + encodeURIComponent(currentUrl)
+      });
+    }
+  });
+});
+
+// Initialize empty blocklist if none exists
+chrome.runtime.onStartup.addListener(() => {
+  chrome.storage.local.get(['blockedUrls'], (result) => {
+    if (!result.blockedUrls) {
+      chrome.storage.local.set({ blockedUrls: [] });
+    }
+  });
+});
