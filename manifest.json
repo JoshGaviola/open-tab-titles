@@ -1,21 +1,20 @@
 {
   "manifest_version": 3,
-  "name": "Tab Title Extractor & URL Blocker",
+  "name": "FocusGuard - Procrastination Detector",
   "version": "1.1",
-  "description": "Displays all tab titles and blocks specific URLs",
+  "description": "AI-powered focus assistant that detects distracting tabs",
   "permissions": [
     "tabs",
     "activeTab",
     "scripting",
-    "storage",
-    "webNavigation"
+    "storage"
   ],
   "host_permissions": [
     "<all_urls>"
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Tab Tools"
+    "default_title": "FocusGuard"
   },
   "background": {
     "service_worker": "background.js",

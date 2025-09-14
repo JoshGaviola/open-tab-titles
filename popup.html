@@ -3,62 +3,104 @@
 <head>
   <meta charset="utf-8">
   <style>
-    /* ... your existing styles ... */
+    body {
+      width: 350px;
+      padding: 15px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+    }
     
-    /* Add these styles for URL blocker */
-    .url-blocker {
-      margin-top: 20px;
-      padding-top: 20px;
-      border-top: 1px solid #ddd;
+    h3 {
+      margin: 0 0 15px 0;
+      color: #2c3e50;
+      font-size: 16px;
+      font-weight: 600;
     }
-    #blockedSitesList {
-      max-height: 200px;
+    
+    .tab-list {
+      max-height: 250px;
       overflow-y: auto;
-      margin: 10px 0;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 15px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
-    .blocked-site-item {
-      padding: 8px;
+    
+    .tab-item {
+      padding: 10px;
       border-bottom: 1px solid #eee;
+      line-height: 1.4;
+    }
+    
+    .tab-item:last-child {
+      border-bottom: none;
+    }
+    
+    .tab-item:hover {
+      background-color: #f8f9fa;
+    }
+    
+    .tab-item strong {
+      display: block;
+      margin-bottom: 4px;
+      color: #2c3e50;
+      font-size: 14px;
+    }
+    
+    .tab-item small {
+      color: #6c757d;
+      font-size: 12px;
+      word-break: break-all;
+    }
+    
+    .controls {
       display: flex;
+      gap: 10px;
       justify-content: space-between;
-      align-items: center;
     }
-    .blocked-site-item:hover {
-      background-color: #f5f5f5;
-    }
-    .remove-btn {
-      color: #ff4444;
-      cursor: pointer;
-      font-weight: bold;
-      padding: 2px 8px;
-    }
-    .remove-btn:hover {
-      background-color: #ff4444;
+    
+    button {
+      flex: 1;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      background-color: #4CAF50;
       color: white;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: background-color 0.2s;
+    }
+    
+    button:hover {
+      background-color: #45a049;
+    }
+    
+    button:active {
+      transform: translateY(1px);
+    }
+    
+    #refreshBtn {
+      background-color: #6c757d;
+    }
+    
+    #refreshBtn:hover {
+      background-color: #5a6268;
     }
   </style>
 </head>
 <body>
   
-  <div id="tabsContent" class="tab-content active">
+  <div id="tabsContent">
     <h3>All Open Tabs</h3>
     <div id="tabList" class="tab-list"></div>
     
     <div class="controls">
-      <button id="refreshBtn">Refresh List</button>
-      <button id="injectBtn">Inject Titles to Current Tab</button>
-    </div>
-
-    <!-- URL Blocker Section -->
-    <div class="url-blocker">
-      <h3>URL Blocker</h3>
-      <div>
-        <input type="text" id="newSiteInput" placeholder="Enter site URL (e.g., youtube.com)" style="width: 70%; padding: 5px;">
-        <button id="addSiteBtn">Block Site</button>
-      </div>
-      <div id="blockedSitesList" class="tab-list">
-        <!-- Blocked sites will appear here -->
-      </div>
+      <button id="refreshBtn">Refresh</button>
+      <button id="injectBtn">Inject Titles</button>
     </div>
   </div>
 
