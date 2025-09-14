@@ -4,35 +4,41 @@
   <meta charset="utf-8">
   <style>
     body {
-      width: 350px;
-      padding: 15px;
+      width: 450px;
+      height: 500px;
+      padding: 20px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f8f9fa;
       margin: 0;
+      overflow: hidden;
     }
     
     h3 {
-      margin: 0 0 15px 0;
+      margin: 0 0 20px 0;
       color: #2c3e50;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 600;
+      text-align: center;
     }
     
     .tab-list {
-      max-height: 250px;
+      max-height: 380px;
       overflow-y: auto;
       background: white;
       border: 1px solid #ddd;
       border-radius: 8px;
-      padding: 10px;
-      margin-bottom: 15px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      padding: 0;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     
     .tab-item {
-      padding: 10px;
+      padding: 12px 15px;
       border-bottom: 1px solid #eee;
-      line-height: 1.4;
+      font-size: 14px;
+      color: #2c3e50;
+      cursor: pointer;
+      transition: background-color 0.2s;
     }
     
     .tab-item:last-child {
@@ -40,31 +46,21 @@
     }
     
     .tab-item:hover {
-      background-color: #f8f9fa;
+      background-color: #e8f4fc;
     }
     
-    .tab-item strong {
-      display: block;
-      margin-bottom: 4px;
-      color: #2c3e50;
-      font-size: 14px;
-    }
-    
-    .tab-item small {
-      color: #6c757d;
-      font-size: 12px;
-      word-break: break-all;
+    .tab-item:active {
+      background-color: #d1e9fa;
     }
     
     .controls {
       display: flex;
-      gap: 10px;
-      justify-content: space-between;
+      gap: 15px;
+      justify-content: center;
     }
     
     button {
-      flex: 1;
-      padding: 10px 15px;
+      padding: 12px 25px;
       border: none;
       border-radius: 6px;
       background-color: #4CAF50;
@@ -72,15 +68,18 @@
       cursor: pointer;
       font-size: 14px;
       font-weight: 500;
-      transition: background-color 0.2s;
+      transition: all 0.2s;
+      min-width: 120px;
     }
     
     button:hover {
       background-color: #45a049;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
     
     button:active {
-      transform: translateY(1px);
+      transform: translateY(0);
     }
     
     #refreshBtn {
@@ -89,6 +88,25 @@
     
     #refreshBtn:hover {
       background-color: #5a6268;
+    }
+    
+    /* Scrollbar styling */
+    .tab-list::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .tab-list::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 0 8px 8px 0;
+    }
+    
+    .tab-list::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 4px;
+    }
+    
+    .tab-list::-webkit-scrollbar-thumb:hover {
+      background: #a8a8a8;
     }
   </style>
 </head>

@@ -33,10 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (tab.title && tab.url) {
           const tabItem = document.createElement('div');
           tabItem.className = 'tab-item';
-          tabItem.innerHTML = `
-            <strong>${tab.title}</strong><br>
-            <small style="color: #666;">${tab.url}</small>
-          `;
+          tabItem.textContent = tab.title;
           tabList.appendChild(tabItem);
         }
       });
@@ -47,10 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const tabItems = tabList.querySelectorAll('.tab-item');
     const titles = [];
     tabItems.forEach(item => {
-      const titleElement = item.querySelector('strong');
-      if (titleElement) {
-        titles.push(titleElement.textContent);
-      }
+      titles.push(item.textContent);
     });
     return titles;
   }
