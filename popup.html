@@ -10,7 +10,9 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f8f9fa;
       margin: 0;
-      overflow: hidden;
+      /* Remove overflow: hidden; */
+      max-height: 500px;
+      overflow-y: auto; /* Enable vertical scrolling */
     }
     
     h3 {
@@ -108,6 +110,80 @@
     .tab-list::-webkit-scrollbar-thumb:hover {
       background: #a8a8a8;
     }
+
+    /* FocusGuard Blocker Section */
+    .focus-blocker-section {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 18px 15px 15px 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.07);
+    }
+
+    .focus-blocker-section h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 17px;
+      color: #2c3e50;
+      text-align: left;
+    }
+
+    .focus-blocker-section label {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .focus-blocker-section input[type="text"] {
+      width: 70%;
+      padding: 7px 10px;
+      margin-bottom: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+
+    .focus-blocker-section button {
+      padding: 7px 16px;
+      font-size: 13px;
+      margin-left: 5px;
+      margin-bottom: 8px;
+      background-color: #1976d2;
+      color: #fff;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .focus-blocker-section button:hover {
+      background-color: #1565c0;
+    }
+
+    .focus-blocker-section h4 {
+      margin: 15px 0 7px 0;
+      font-size: 15px;
+      color: #444;
+    }
+
+    .focus-blocker-section ul {
+      list-style: disc inside;
+      margin: 0 0 10px 0;
+      padding: 0;
+      font-size: 13px;
+      color: #333;
+    }
+
+    .focus-blocker-section .debug {
+      margin-top: 12px;
+      display: flex;
+      gap: 10px;
+    }
+
+    #permissionWarning {
+      margin-top: 15px;
+    }
   </style>
 </head>
 <body>
@@ -122,33 +198,35 @@
     </div>
 
     <!-- FocusGuard Blocker Controls START -->
-    <h3>FocusGuard Blocker</h3>
-    <label>
-      <input type="checkbox" id="blockingEnabled"> Enable Blocking
-    </label>
-    <br><br>
-    
-    <input type="text" id="newUrl" placeholder="Enter URL or title to block">
-    <button id="addBtn">Add</button>
-    
-    <h4>Blocked Items:</h4>
-    <ul id="urlList"></ul>
+    <div class="focus-blocker-section">
+      <h3>FocusGuard Blocker</h3>
+      <label>
+        <input type="checkbox" id="blockingEnabled"> Enable Blocking
+      </label>
+      <br><br>
+      
+      <input type="text" id="newUrl" placeholder="Enter URL or title to block">
+      <button id="addBtn">Add</button>
+      
+      <h4>Blocked Items:</h4>
+      <ul id="urlList"></ul>
 
-    <h4>Allowed Tabs:</h4>
-    <input type="text" id="allowedUrl" placeholder="Enter URL or title to allow">
-    <button id="addAllowedBtn">Add</button>
-    <ul id="allowedList"></ul>
-    
-    <div class="debug">
-      <button id="debugBtn">Debug Current Tab</button>
-      <button id="extractBtn">Extract from FocusGuard</button>
-    </div>
+      <h4>Allowed Tabs:</h4>
+      <input type="text" id="allowedUrl" placeholder="Enter URL or title to allow">
+      <button id="addAllowedBtn">Add</button>
+      <ul id="allowedList"></ul>
+      
+      <div class="debug">
+        <button id="debugBtn">Debug Current Tab</button>
+        <button id="extractBtn">Extract from FocusGuard</button>
+      </div>
 
-    <div id="permissionWarning" style="display: none; background: #ffebee; color: #c62828; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
-      <p style="margin: 0 0 10px 0;">⚠️ Permissions needed for full functionality</p>
-      <button id="requestPermissions" style="background: #c62828; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">
-        Grant Permissions
-      </button>
+      <div id="permissionWarning" style="display: none; background: #ffebee; color: #c62828; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
+        <p style="margin: 0 0 10px 0;">⚠️ Permissions needed for full functionality</p>
+        <button id="requestPermissions" style="background: #c62828; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">
+          Grant Permissions
+        </button>
+      </div>
     </div>
     <!-- FocusGuard Blocker Controls END -->
 
