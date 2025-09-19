@@ -28,6 +28,17 @@
       "matches": ["<all_urls>"],
       "js": ["content.js"],
       "run_at": "document_end"
+    },
+    {
+      "matches": ["file:///C:/Users/user/Desktop/procrastiguard/index.html"],
+      "js": ["contentExtractor.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-script.js"],
+      "run_at": "document_start",
+      "all_frames": true
     }
   ]
 }
