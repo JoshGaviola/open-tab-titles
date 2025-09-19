@@ -120,8 +120,39 @@
       <button id="refreshBtn">Refresh</button>
       <button id="injectBtn">Inject Titles</button>
     </div>
-  </div>
 
+    <!-- FocusGuard Blocker Controls START -->
+    <h3>FocusGuard Blocker</h3>
+    <label>
+      <input type="checkbox" id="blockingEnabled"> Enable Blocking
+    </label>
+    <br><br>
+    
+    <input type="text" id="newUrl" placeholder="Enter URL or title to block">
+    <button id="addBtn">Add</button>
+    
+    <h4>Blocked Items:</h4>
+    <ul id="urlList"></ul>
+
+    <h4>Allowed Tabs:</h4>
+    <input type="text" id="allowedUrl" placeholder="Enter URL or title to allow">
+    <button id="addAllowedBtn">Add</button>
+    <ul id="allowedList"></ul>
+    
+    <div class="debug">
+      <button id="debugBtn">Debug Current Tab</button>
+      <button id="extractBtn">Extract from FocusGuard</button>
+    </div>
+
+    <div id="permissionWarning" style="display: none; background: #ffebee; color: #c62828; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
+      <p style="margin: 0 0 10px 0;">⚠️ Permissions needed for full functionality</p>
+      <button id="requestPermissions" style="background: #c62828; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">
+        Grant Permissions
+      </button>
+    </div>
+    <!-- FocusGuard Blocker Controls END -->
+
+  </div>
   <script src="popup.js"></script>
 </body>
 </html>
